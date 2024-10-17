@@ -1,75 +1,101 @@
 <template>
-  <v-sheet height="auto" width="100%" color="#1b392c">
-    <div class="d-flex flex-row justify-space-between">
-      <div class="d-flex flex-column justify-space-around mx-6 py-15">
-        <p class="text-h2 font-weight-regular hanken-grotesk-saw">
-          Hi, I'm Sanchit Singh
-        </p>
-        <div class="text-h4 font-weight-light hanken-grotesk-saw">
-          <p>A <span style="color: #ceff06">full-stack</span> wizard conjuring up code</p>
-          <p>from front to back!</p>
-        </div>
-        <v-list width="100%" lines="one" bg-color="transparent">
-          <v-list-item
-            v-for="menu in headerMenu"
-            :key="menu.text"
-            style="padding: 0;"
-          >
-            <v-list-item-title class="text-h6 font-weight-normal hanken-grotesk-saw line-before-text">
-              {{ menu.text }}
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-        <div class="d-flex flex-row justify-start">
-          <v-btn
-            v-for="button in socialButtons"
-            :key="button"
-            class="me-2"
-            variant="text"
-            size="x-large"
-            active-color="#ffffff"
-          >
-            <v-icon
-              color="#000000"
-              :icon="button"
-              size="40"
-            ></v-icon>
-          </v-btn>
-        </div>
+  <v-sheet height="100vh" width="100%" color="#010539" class="d-flex flex-row justify-space-around">
+    <div class="d-flex flex-column justify-space-around mx-6 py-25" style="width: 40%; flex: 1 0 auto;">
+      <p class="text-h2 font-weight-regular hanken-grotesk-saw">
+        Hi, I'm Sanchit
+      </p>
+      <div class="text-h4 font-weight-light hanken-grotesk-saw">
+        <p>A <span id="typed" style="color: #06cee1"></span> wizard conjuring up code</p>
+        <p>from front to back!</p>
       </div>
-      <v-img
-        height="100%"
-        max-height="800"
-        max-width="60%"
-        cover
-        src="http://localhost:8080/src/assets/saw-welcome.jpg"
-      ></v-img>
+      <v-list width="100%" lines="one" bg-color="transparent">
+        <v-list-item
+          v-for="menu in headerMenu"
+          :key="menu.text"
+          style="padding: 0;"
+        >
+          <v-list-item-title class="text-h6 font-weight-normal hanken-grotesk-saw line-before-text" @click="$emit('scrollToElement', menu.identifier, menu.offset)">
+            {{ menu.text }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+      <div class="d-flex flex-row justify-center">
+        <v-btn
+          v-for="button in socialButtons"
+          :key="button.icon"
+          class="me-2"
+          variant="text"
+          size="large"
+          active-color="#000000"
+          :href="button.redirectUrl"
+          target="_blank"
+        >
+          <v-icon
+            color="#ffffff"
+            :icon="button.icon"
+            size="50"
+          ></v-icon>
+        </v-btn>
+      </div>
     </div>
+    <v-img
+      max-height="100vh"
+      class="w-60"
+      cover
+      src="http://localhost:8080/src/assets/saw-welcome.jpg"
+      style="width: 60%;"
+    ></v-img>
   </v-sheet>
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
+  import Typed from 'typed.js';
+
+  const typedText = ref(['FULL-STACK', 'full-stack', 'Full-Stack']);
+
+  onMounted(() => {
+    const typed = new Typed('#typed', {
+      strings: typedText.value,
+      showCursor: false,
+      typeSpeed: 150, // Adjust speed as desired (characters per second)
+      backSpeed: 0, // Set to 0 to disable backspace animation
+      onComplete: () => {
+        setTimeout(() => {
+          typed.reset(); // Reset the typing machine
+          typed.start(); // Start a new typing animation
+        }, 2000);
+      }
+    });
+  });
 
   const headerMenu = ref([
     {
-      text: 'ABOUT',
-      redirectUrl: 'http://localhost:8080/about',
-    },
-    {
       text: 'MY WORK',
-      redirectUrl: 'http://localhost:8080/projects',
+      identifier: 'projects',
+      offset: 0
     },
     {
       text: 'WORK EXPERIENCE',
-      redirectUrl: 'http://localhost:8080/pastWork',
+      identifier: 'experience',
+      offset: 0
+    },
+    {
+      text: 'CONTACT ME',
+      identifier: 'contact',
+      offset: 0
     },
   ]);
 
   const socialButtons = ref([
-    'fa-brands fa-github',
-    'fa-brands fa-linkedin',
-    'fa-brands fa-google',
+    {
+      icon: 'fa-brands fa-github',
+      redirectUrl: 'https://github.com/sanchitsg'
+    },
+    {
+      icon: 'fa-brands fa-linkedin',
+      redirectUrl: 'https://github.com/sanchitsg'
+    }
   ]);
 </script>
 
@@ -82,13 +108,8 @@
     margin: -0.6rem 2rem -0.6rem 0;
     transform: translateY(-1rem);
   }
-  .fade-enter-from {
-    opacity: 0;
-  }
-  .fade-enter-to {
-    opacity: 1;
-  }
-  .fade-enter-active {
-    transition: opacity 2s ease;
+  .line-before-text:hover {
+    font-weight: bolder;
+    cursor: pointer;
   }
 </style>
