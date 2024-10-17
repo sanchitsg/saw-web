@@ -34,15 +34,13 @@
             color="#ffffff"
             :icon="button.icon"
             size="50"
-            class="animate__animated animate__bounce"
-            ref="bounceIcon"
           ></v-icon>
         </v-btn>
       </div>
     </div>
     <v-img
       max-height="100vh"
-      class="w-60 animate__animated animate__backInUp"
+      class="w-60"
       cover
       src="http://localhost:8080/src/assets/saw-welcome.jpg"
       style="width: 60%;"
@@ -60,7 +58,7 @@
     const typed = new Typed('#typed', {
       strings: typedText.value,
       showCursor: false,
-      typeSpeed: 100, // Adjust speed as desired (characters per second)
+      typeSpeed: 150, // Adjust speed as desired (characters per second)
       backSpeed: 0, // Set to 0 to disable backspace animation
       onComplete: () => {
         setTimeout(() => {

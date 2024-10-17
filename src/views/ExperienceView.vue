@@ -11,6 +11,7 @@
           line-thickness="4"
           line-inset="0"
           dot-color="#06cee1"
+          fill-dot
           size="x-small"
           class="my-5"
         >
