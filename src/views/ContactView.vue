@@ -74,7 +74,7 @@
     },
     {
       icon: 'fa-brands fa-linkedin',
-      redirectUrl: 'https://github.com/sanchitsg'
+      redirectUrl: 'https://www.linkedin.com/in/sanchit-singh-aa8a53166'
     }
   ]);
 </script>
